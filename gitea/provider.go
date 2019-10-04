@@ -43,8 +43,9 @@ func Provider() terraform.ResourceProvider {
 			"gitea_milestone":    resourceGiteaMilestone(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"gitea_user":       dataSourceGiteaUser(),
-			"gitea_repository": dataSourceGiteaRepository(),
+			"gitea_user":         dataSourceGiteaUser(),
+			"gitea_repository":   dataSourceGiteaRepository(),
+			"gitea_organization": dataSourceGiteaOrganization(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
