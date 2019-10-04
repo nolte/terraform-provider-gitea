@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/hashicorp/terraform/plugin"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/nlamirault/terraform-provider-gitea/gitea"
+	"github.com/ziporah/terraform-provider-gitea/gitea"
 )
 
 func main() {
