@@ -3,6 +3,7 @@ package gitea
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	giteaapi "code.gitea.io/sdk/gitea"
 	"github.com/hashicorp/terraform/helper/schema"
@@ -14,6 +15,9 @@ func resourceGiteaOrganization() *schema.Resource {
 		Read:   resourceGiteaOrganizationRead,
 		Update: resourceGiteaOrganizationUpdate,
 		Delete: resourceGiteaOrganizationDelete,
+		Importer: &schema.ResourceImporter{
+			State: resourceGiteaOrganizationImportState,
+		},
 		Schema: map[string]*schema.Schema{
 			"owner": &schema.Schema{
 				Type:     schema.TypeString,
@@ -44,7 +48,7 @@ func resourceGiteaOrganizationSetToState(d *schema.ResourceData, org *giteaapi.O
 	if err := d.Set("username", org.UserName); err != nil {
 		return err
 	}
-	if err := d.Set("fullname", org.UserName); err != nil {
+	if err := d.Set("fullname", org.FullName); err != nil {
 		return err
 	}
 	if err := d.Set("description", org.Description); err != nil {
@@ -99,4 +103,16 @@ func resourceGiteaOrganizationDelete(d *schema.ResourceData, meta interface{}) e
 	// log.Printf("[DEBUG] delete organization %s", d.Id())
 	// return client.AdminDeleteOrganization(d.Get("username").(string))
 	return nil
+}
+
+func resourceGiteaOrganizationImportState(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+	parts := strings.Split(d.Id(), "/")
+
+	if len(parts) != 2 {
+		return nil, fmt.Errorf("Invalid import id %q. Expecting {id}/{username}", d.Id())
+	}
+	d.Set("username", parts[1])
+	d.SetId(parts[0])
+
+	return []*schema.ResourceData{d}, nil
 }
