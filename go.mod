@@ -1,24 +1,15 @@
 module github.com/nlamirault/terraform-provider-gitea
 
 require (
-	code.gitea.io/sdk v0.0.0-20190208103852-600c19aa03dc
-	github.com/apparentlymart/go-cidr v1.0.0 // indirect
-	github.com/blang/semver v3.5.1+incompatible // indirect
-	github.com/gogits/go-gogs-client v0.0.0-20181217004319-1cd0db3113de
-	github.com/hashicorp/go-getter v1.0.3 // indirect
+	code.gitea.io/sdk/gitea v0.0.0-20191124163040-b374d7ccc4b4
+	// code.gitea.io/sdk v0.0.0-20190208103852-600c19aa03dc
+	gitea.com/gitea/go-sdk v0.0.0-20191124163040-b374d7ccc4b4
+	//github.com/gogits/go-gogs-client v0.0.0-20181217004319-1cd0db3113de
 	github.com/hashicorp/go-hclog v0.0.0-20190109152822-4783caec6f2e // indirect
-	github.com/hashicorp/go-plugin v0.0.0-20190129155509-362c99b11937 // indirect
-	github.com/hashicorp/go-uuid v1.0.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/hashicorp/hcl2 v0.0.0-20190130225218-89dbc5eb3d9e // indirect
 	github.com/hashicorp/hil v0.0.0-20190212132231-97b3a9cdfa93 // indirect
-	github.com/hashicorp/logutils v1.0.0 // indirect
-	github.com/hashicorp/terraform v0.11.11
-	github.com/mitchellh/cli v1.0.0 // indirect
-	github.com/mitchellh/copystructure v1.0.0 // indirect
+	github.com/hashicorp/terraform v0.12.1
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
-	github.com/mitchellh/hashstructure v1.0.0 // indirect
-	github.com/zclconf/go-cty v0.0.0-20190201220620-4ca19710f056 // indirect
-	golang.org/x/crypto v0.0.0-20190211182817-74369b46fc67 // indirect
-	golang.org/x/net v0.0.0-20190206173232-65e2d4e15006 // indirect
 )
+
+go 1.13

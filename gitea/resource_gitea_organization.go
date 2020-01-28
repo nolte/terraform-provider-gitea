@@ -44,7 +44,7 @@ func resourceGiteaOrganizationSetToState(d *schema.ResourceData, org *giteaapi.O
 	if err := d.Set("username", org.UserName); err != nil {
 		return err
 	}
-	if err := d.Set("fullname", org.UserName); err != nil {
+	if err := d.Set("fullname", org.FullName); err != nil {
 		return err
 	}
 	if err := d.Set("description", org.Description); err != nil {
@@ -74,7 +74,7 @@ func resourceGiteaOrganizationCreate(d *schema.ResourceData, meta interface{}) e
 	}
 	log.Printf("[DEBUG] organization created: %v", org)
 	d.SetId(fmt.Sprintf("%d", org.ID))
-	return resourceGiteaUserRead(d, meta)
+	return resourceGiteaOrganizationSetToState(d, org)
 }
 
 func resourceGiteaOrganizationRead(d *schema.ResourceData, meta interface{}) error {
@@ -95,8 +95,14 @@ func resourceGiteaOrganizationUpdate(d *schema.ResourceData, meta interface{}) e
 }
 
 func resourceGiteaOrganizationDelete(d *schema.ResourceData, meta interface{}) error {
-	// client := meta.(*giteaapi.Client)
-	// log.Printf("[DEBUG] delete organization %s", d.Id())
-	// return client.AdminDeleteOrganization(d.Get("username").(string))
+	client := meta.(*giteaapi.Client)
+	log.Printf("[DEBUG] delete organization %s", d.Id())
+	username := d.Get("username").(string)
+	err := client.DeleteOrg(username)
+	if err != nil {
+		return fmt.Errorf("unable to retrieve organization %s", username)
+	}
+	log.Printf("[DEBUG] organization removed: %v", username)
 	return nil
+
 }
